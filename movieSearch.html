@@ -4,7 +4,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
-        // confirm document is ready
         $(document).ready(function () {
             console.log("ready!");
         
@@ -13,13 +12,10 @@
         var movieBody = document.getElementById('movieBody');
         var oneMovie = document.getElementById('getOneMovie');
         var batBody = document.getElementById('batman');
-        
-        var movieSelection = document.getElementById('movieSelection').value;
-        var submitButton = document.getElementById('submitButton')
 
-        // Get series of movies/series
+        
         button.addEventListener('click', function() {
-            var apiKey = 'b829fc58';
+            var apiKey = '8c10a0df';
             $.get(`https://www.omdbapi.com/?apikey=${apiKey}&type=series&s=cosby`, function (data) {
             
             for (let i = 0; i < data.Search.length; i++) {
@@ -29,7 +25,7 @@
                     var imdbID = data.Search[i].imdbID;
                     var poster = data.Search[i].Poster;
                     var movieContainer = document.createElement('div');
-                    // using template literal to append items
+                    
                     var movieInfo = 
                     `<div>
                         <p>${title}, ${year}, ${imdbID}</p>
@@ -40,18 +36,20 @@
                     movieContainer.innerHTML = movieInfo;
                     console.log(movieInfo);
                     movieBody.appendChild(movieContainer);
+                    
+                
                 }
                 
             });
         })
 
-        // Batman as single item searched
+        // Batman
         oneMovie.addEventListener('click', function() {
-            var apiKey = 'b829fc58';
+            var apiKey = '8c10a0df';
             $.get(`https://www.omdbapi.com/?apikey=${apiKey}&type=movie&s=batman`, function (data) {
-                console.log(data.Search.length);
-                // Get random movie
-                var batmanMovie = data.Search[Math.floor(Math.random() * data.Search.length)]; 
+                console.log(data.Search[0]);
+                var batmanMovie = data.Search[0];
+                
                 var batTitle = batmanMovie.Title;
                 var batYear = batmanMovie.Year;
                 var batimdbID = batmanMovie.imdbID;
@@ -62,45 +60,15 @@
                 `<div>
                     <p>${batTitle}, ${batYear}, ${batimdbID}</p>
                     <img src="${batPoster}">
-                </div> 
+                </div>
+                
                 `
                 batContainer.innerHTML = batInfo;
                 batBody.appendChild(batContainer);
             });
         })
-//Search movie titles
-        submitButton.addEventListener('click', function() {
-            var movieSelection = document.getElementById('movieSelection').value;
-            console.log(movieSelection);
-            
-            var apiKey = 'b829fc58';
-            $.get(`https://www.omdbapi.com/?apikey=${apiKey}&type=movie&s=${movieSelection}`, function (data) {
-                console.log(data);
-                
-                for (let i = 0; i < data.Search.length; i++) {
-                   
-                   var title = data.Search[i].Title;
-                   var year = data.Search[i].Year;
-                   var imdbID = data.Search[i].imdbID;
-                   var poster = data.Search[i].Poster;
-                   var movieContainer = document.createElement('div');
-                   // using template literal to append items
-                   var movieInfo = 
-                   `<div>
-                       <p>${title}, ${year}, ${imdbID}</p>
-                       <img src="${poster}">
-                   </div>
-                   
-                   `
-                   movieContainer.innerHTML = movieInfo;
-                   console.log(movieInfo);
-                   movieBody.appendChild(movieContainer);
-               }
-                
-            })})
         
-    });
-     // <--- body ready
+    }); // <--- body ready
     </script>
 
     <title>Document</title>
@@ -115,13 +83,13 @@
     <div id="batman"></div>
 
     <div>
-        
+        <form>
             <div class="form-group">
               <label for="movieSelection">Select Movie</label>
               <input type="text" class="form-control" id="movieSelection" aria-describedby="" placeholder="Enter movie choice">
             </div>
-            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
-          
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
     </div>
     
 </body>
