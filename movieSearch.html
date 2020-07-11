@@ -42,6 +42,13 @@
             $.get(`https://www.omdbapi.com/?apikey=${apiKey}&type=movie&s=${movieSelection}`, function (data) {
                 addMultiple(data);
             });
+            if (movieSelection == "") {
+              alert("Please add a movie to search");
+            }
+            else if (movieSelection !== 'click') {
+              alert("This movie is not currently at our theater, search again.");
+            }
+            
         });
 
         //---------------- FUNCTIONS ------------------------//
@@ -187,6 +194,7 @@
     /* General styles and layout */
     body {
       background-image: url('images/stars-background.jpg');
+      background-color: black;
     }
     
     .search {
